@@ -47,7 +47,7 @@
         <rosparam file="$(find rosbot_navigation)/config/trajectory_planner.yaml" command="load" />
     </node>
 
-    <node name="rviz" pkg="rviz" type="rviz"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tutorial_pkg)/rviz/tutorial_9.rviz"/>
 
     <node name="find_object_3d" pkg="find_object_2d" type="find_object_2d" output="log" required="true">
         <param name="gui" value="true" type="bool"/>
