@@ -10,6 +10,7 @@
         <param name="scan_height" value="1"/>
         <param name="range_min" value="0.45"/>
         <param name="range_max" value="1.5"/>
+        <param name="output_frame_id" value="camera_link"/>
     </node>
 
     <node pkg="image_transport" type="republish" name="rgb_compress" args=" raw in:=/camera/rgb/image_raw compressed out:=/rgb_republish"/>
