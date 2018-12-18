@@ -5,7 +5,7 @@
 
     <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/maze_world.launch"/>
     <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/rosbot.launch"/>
-    
+
     <param if="$(arg use_gazebo)" name="use_sim_time" value="true"/>
 
     <node if="$(arg use_rosbot)" pkg="rplidar_ros" type="rplidarNode" name="rplidar">
@@ -21,7 +21,11 @@
     <node pkg="gmapping" type="slam_gmapping" name="gmapping">
         <param name="base_frame" value="base_link"/>
         <param name="odom_frame" value="odom" />
-        <param name="delta" value="0.1" />
+        <param name="delta" value="0.01"/>
+        <param name="xmin" value="-10"/>
+        <param name="ymin" value="-10"/>
+        <param name="xmax" value="10"/>
+        <param name="ymax" value="10"/>
     </node>
 
     <node pkg="move_base" type="move_base" name="move_base" output="screen">
