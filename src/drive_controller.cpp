@@ -14,7 +14,7 @@ void pose_callback(const geometry_msgs::PoseStampedPtr &pose)
     q.setZ(pose->pose.orientation.z);
     q.setW(pose->pose.orientation.w);
 
-    transform.setOrigin(tf::Vector3(pose->pose.position.x, pose->pose.position.y, 0.0));
+    transform.setOrigin(tf::Vector3(pose->pose.position.x, pose->pose.position.y, 0.04));
     transform.setRotation(q);
 
     br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "odom", "base_link"));
