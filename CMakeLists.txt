@@ -30,6 +30,7 @@ add_executable(mission_controller_node src/mission_controller.cpp)
 add_executable(search_controller_node src/search_controller.cpp)
 add_executable(drive_controller_node src/drive_controller.cpp)
 add_executable(search_manager src/search_manager_node.cpp src/SearchManager.cpp)
+add_executable(start_exploration src/explore_action_client.cpp)
 
 target_link_libraries(tutorial_pkg_node
   ${catkin_LIBRARIES}
@@ -53,5 +54,9 @@ target_link_libraries(drive_controller_node
 )
 
 target_link_libraries(search_manager
+  ${catkin_LIBRARIES}
+)
+
+target_link_libraries(start_exploration
   ${catkin_LIBRARIES}
 )
