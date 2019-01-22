@@ -1,0 +1,7 @@
+<launch>
+
+    <node pkg="tutorial_pkg" type="drive_controller_node" name="drive_controller"/>
+
+    <include file="$(find tutorial_pkg)/launch/gmapping.launch"></include>
+
+</launch>
