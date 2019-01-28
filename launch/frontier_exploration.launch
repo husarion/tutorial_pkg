@@ -1,0 +1,13 @@
+<launch>
+    
+    <node pkg="frontier_exploration" type="explore_client" name="explore_client" output="screen"/>
+
+    <node pkg="frontier_exploration" type="explore_server" name="explore_server" output="screen">
+        <param name="frequency" type="double" value="1.0"/>
+        <param name="goal_aliasing" type="double" value="0.1"/>
+        <rosparam ns="explore_costmap" subst_value="true" file="$(find rosbot_navigation)/config/exploration.yaml" command="load" />
+        <param name="explore_clear_space" type="boolean" value="true"/>
+        <param name="frontier_travel_point" type="string" value="middle"/>
+    </node>
+
+</launch>

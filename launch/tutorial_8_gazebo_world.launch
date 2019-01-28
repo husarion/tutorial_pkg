@@ -1,0 +1,5 @@
+<launch>
+
+    <include file="$(find rosbot_gazebo)/launch/maze_world.launch"/>
+
+</launch>
