@@ -4,7 +4,7 @@
 
     <include file="$(find rosbot_description)/launch/rosbot_gazebo.launch"/>
 
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find tutorial_pkg)/rviz/tutorial_7.rviz"/>
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find tutorial_pkg)/rviz/tutorial_7.rviz"/>
 
     <include file="$(find tutorial_pkg)/launch/gmapping.launch"></include>
 
