@@ -1,0 +1,7 @@
+<launch>
+
+    <include file="$(find tutorial_pkg)/launch/tutorial_7_gazebo_world.launch"></include>
+
+    <include file="$(find tutorial_pkg)/launch/tutorial_7_gazebo_rosbot.launch"></include>
+
+</launch>
