@@ -1,0 +1,25 @@
+<launch>
+
+    <param name="use_sim_time" value="true"/>
+    <arg name="world" default="empty"/>
+    <arg name="paused" default="false"/>
+    <arg name="use_sim_time" default="true"/>
+    <arg name="gui" default="true"/>
+    <arg name="headless" default="false"/>
+    <arg name="debug" default="false"/>
+
+    <include file="$(find rosbot_description)/launch/rosbot.launch"/>
+
+    <node pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0.019 0 0 3.14 0 0 base_link laser 100"/>
+
+    <include file="$(find tutorial_pkg)/launch/gmapping.launch"></include>
+
+    <include file="$(find tutorial_pkg)/launch/move_base.launch"></include>
+
+    <include file="$(find tutorial_pkg)/launch/find_object_3d.launch"></include>
+
+    <include file="$(find tutorial_pkg)/launch/frontier_exploration.launch"></include>
+
+    <node pkg="tutorial_pkg" type="search_manager" name="search_manager" output="screen"/>
+
+</launch>

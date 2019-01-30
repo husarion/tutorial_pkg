@@ -1,6 +1,6 @@
 <launch>
 
-    <node pkg="move_base" type="move_base" name="move_base" output="screen">
+    <node pkg="move_base" type="move_base" name="move_base" output="log">
         <param name="controller_frequency" value="10.0"/>
         <rosparam file="$(find rosbot_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
         <rosparam file="$(find rosbot_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />

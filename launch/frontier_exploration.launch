@@ -1,8 +1,8 @@
 <launch>
     
-    <node pkg="frontier_exploration" type="explore_client" name="explore_client" output="screen"/>
+    <node pkg="frontier_exploration" type="explore_client" name="explore_client" output="log"/>
 
-    <node pkg="frontier_exploration" type="explore_server" name="explore_server" output="screen">
+    <node pkg="frontier_exploration" type="explore_server" name="explore_server" output="log">
         <param name="frequency" type="double" value="1.0"/>
         <param name="goal_aliasing" type="double" value="0.1"/>
         <rosparam ns="explore_costmap" subst_value="true" file="$(find rosbot_navigation)/config/exploration.yaml" command="load" />
