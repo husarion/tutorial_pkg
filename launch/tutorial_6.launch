@@ -1,6 +1,10 @@
 <launch>
 
-    <include file="$(find tutorial_pkg)/launch/tutorial_6_core.launch"></include>
+    <arg name="rosbot_pro" default="false"/>
+    
+    <include file="$(find tutorial_pkg)/launch/tutorial_6_core.launch">
+        <arg name="rosbot_pro" value="$(arg rosbot_pro)" />
+    </include>
 
     <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop_twist_keyboard" output="screen"/>
 
