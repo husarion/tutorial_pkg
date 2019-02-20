@@ -1,6 +1,6 @@
 <launch>
 
-    <include file="$(find rosbot_description)/launch/rosbot_hardware.launch"></include>
+    <include file="$(find tutorial_pkg)/launch/rosbot_hardware.launch"></include>
 
     <node pkg="tutorial_pkg" type="drive_controller_node" name="drive_controller"/>
 

@@ -1,15 +1,8 @@
 <launch>
 
     <include file="$(find tutorial_pkg)/launch/rosbot_hardware.launch"></include>
-   
-    <node pkg="depthimage_to_laserscan" type="depthimage_to_laserscan" name="depthimage_to_laserscan" required="true">
-        <remap from="/image" to="/camera/depth/image_raw"/>
-        <remap from="scan" to="proj_scan"/>
-        <param name="scan_height" value="1"/>
-        <param name="range_min" value="0.45"/>
-        <param name="range_max" value="1.5"/>
-        <param name="output_frame_id" value="camera_link"/>
-    </node>
+
+    <include file="$(find tutorial_pkg)/launch/depthimage_to_laserscan.launch"></include>
 
     <node pkg="image_transport" type="republish" name="rgb_compress" args=" raw in:=/camera/rgb/image_raw compressed out:=/rgb_republish"/>
 
