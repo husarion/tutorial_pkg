@@ -8,6 +8,10 @@
   <include unless="$(arg rosbot_pro)" file="$(find rplidar_ros)/launch/rplidar.launch"></include>
   <include if="$(arg rosbot_pro)" file="$(find rplidar_ros)/launch/rplidar_a3.launch"></include>
 
+  <node pkg="tf" type="static_transform_publisher" name="laser_publisher" args="0 0 0.058 1.5707 0 0 base_link laser 250" />
+
+  <node pkg="tf" type="static_transform_publisher" name="camera_publisher" args="-0.03 0 0.18 0 0 0 base_link camera_link 250" />
+
   <node name="serial_bridge" pkg="tutorial_pkg" type="serial_bridge.sh" />
 
 </launch>
