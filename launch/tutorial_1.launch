@@ -3,8 +3,7 @@
     <arg name="use_gazebo" default="false"/>
 
     <include if="$(arg use_rosbot)" file="$(find astra_launch)/launch/astra.launch"/>
-    <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/rosbot_world.launch"/>
-    <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/rosbot.launch"/>
+    <include if="$(arg use_gazebo)" file="$(find rosbot_description)/launch/rosbot.launch"/>
 
     <node pkg="image_view" type="image_view" name="image_view">
         <remap from="/image" to="/camera/rgb/image_raw"/>
