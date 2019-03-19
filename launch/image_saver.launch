@@ -1,0 +1,9 @@
+<launch>
+
+    <node pkg="image_view" type="image_saver" name="image_saver">
+        <param name="save_all_image" value="false" />
+        <param name="filename_format" value="$(env HOME)/ros_workspace/image%04d.%s"/>
+        <remap from="/image" to="/camera/rgb/image_raw"/>
+    </node>
+
+</launch>

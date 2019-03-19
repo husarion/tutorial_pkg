@@ -1,0 +1,6 @@
+<launch>
+
+    <node pkg="tutorial_pkg" type="tutorial_pkg_node" name="tutorial_pkg_node" output="screen">
+    </node>
+
+</launch>
