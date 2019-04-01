@@ -6,8 +6,11 @@
 
   <include file="$(find astra_launch)/launch/astra.launch"></include>
 
-  <include unless="$(eval rosbot_version == '2.0_PRO' or rosbot_pro == true)" file="$(find rplidar_ros)/launch/rplidar.launch"></include>
+  <include if="$(eval rosbot_version == '2.0' and arg('rosbot_pro') == false)" file="$(find rplidar_ros)/launch/rplidar.launch"></include>
   <include if="$(eval rosbot_version == '2.0_PRO' or arg('rosbot_pro') == true)" file="$(find rplidar_ros)/launch/rplidar_a3.launch"></include>
+  <node unless="$(eval rosbot_version == '2.0' or rosbot_version == '2.0_PRO' or arg('rosbot_pro') == true)" name="rplidarNode" pkg="rplidar_ros" type="rplidarNode" output="screen">
+    <rosparam file="/rosbot_conf.yaml" command="load"/>
+  </node>
 
   <node pkg="tf" type="static_transform_publisher" name="laser_publisher" args="0 0 0.058 3.14159 0 0 base_link laser 100" />
 
