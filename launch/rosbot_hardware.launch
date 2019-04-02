@@ -2,7 +2,7 @@
 <launch>
 
   <arg name="rosbot_pro" default="false"/>
-  <arg name="rosbot_version" default="$(env ROSBOT_VER)"/>
+  <arg name="rosbot_version" default="$(optenv ROSBOT_VER)"/>
 
   <include file="$(find astra_launch)/launch/astra.launch"></include>
 
