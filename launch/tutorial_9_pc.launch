@@ -5,7 +5,7 @@
         <param name="compressed/mode" value="color"/>
     </node>
 
-    <node pkg="image_transport" type="republish" name="depth_decompress" args=" compressed in:=/depth_republish raw out:=/depth_raw ">
+    <node pkg="image_transport" type="republish" name="depth_decompress" args=" compressedDepth in:=/depth_republish raw out:=/depth_raw ">
         <param name="compressed/mode" value="unchanged"/>
     </node>
 

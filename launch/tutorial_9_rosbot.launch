@@ -10,14 +10,10 @@
 
     <node pkg="image_transport" type="republish" name="rgb_compress" args=" raw in:=/camera/rgb/image_raw compressed out:=/rgb_republish"/>
 
-    <node pkg="image_transport" type="republish" name="depth_compress" args=" raw in:=/camera/depth/image_raw compressed out:=/depth_republish">
-        <param name="compressed/format" value="png"/>
-        <param name="compressed/png_level" value="1"/>
+    <node pkg="image_transport" type="republish" name="depth_republish" args=" raw in:=/camera/depth/image_raw compressedDepth out:=/depth_republish">
+        <param name="compressedDepth/format" value="png"/>
+        <param name="compressedDepth/png_level" value="1"/>
     </node>
-
-    <node pkg="tf" type="static_transform_publisher" name="ROSbot2_laser" args="0.019 0 0 3.14 0 0 base_link laser 100" />
-
-    <node pkg="tf" type="static_transform_publisher" name="ROSbot2_camera" args="0.0 0 0.15 0 0 0 base_link camera_link 100" />
 
     <include file="$(find tutorial_pkg)/launch/gmapping.launch"></include>
 
