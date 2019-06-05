@@ -205,7 +205,6 @@ void scanCallback(const sensor_msgs::LaserScanConstPtr &msg)
     ranges_size = msg->ranges.size();
     uint32_t s = msg->header.stamp.sec;
     uint32_t ns = msg->header.stamp.nsec;
-    ROS_INFO("Scan time: %d,%d", s, ns);
 
     double camera_x;
     double camera_y;
