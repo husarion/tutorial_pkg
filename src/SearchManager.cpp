@@ -107,7 +107,7 @@ bool SearchManager::check_space_occupation(grid_map::Position *robot_dest, doubl
 
 bool SearchManager::set_point_checked(float x, float y, grid_map::GridMap *gm, grid_map::Position obstacle)
 {
-    float radius = 3 * gm->getResolution();
+    float radius = 5 * gm->getResolution();
     return set_point_checked(x, y, gm, obstacle, radius);
 }
 
