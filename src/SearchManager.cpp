@@ -60,10 +60,10 @@ bool SearchManager::check_space_occupation(grid_map::Position *robot_dest, doubl
     current_robot_destination[1] = current_obstacle[1] + dist_from_obstacle * (cos((bearing)*M_PI / 180));
     middle_corner[0] = current_obstacle[0] + min_dist * (sin((bearing)*M_PI / 180));
     middle_corner[1] = current_obstacle[1] + min_dist * (cos((bearing)*M_PI / 180));
-    left_corner[0] = middle_corner[0] + min_dist * (sin((bearing + 90) * M_PI / 180));
-    left_corner[1] = middle_corner[1] + min_dist * (cos((bearing + 90) * M_PI / 180));
-    right_corner[0] = middle_corner[0] + min_dist * (sin((bearing - 90) * M_PI / 180));
-    right_corner[1] = middle_corner[1] + min_dist * (cos((bearing - 90) * M_PI / 180));
+    left_corner[0] = middle_corner[0] + 3 * min_dist * (sin((bearing + 90) * M_PI / 180));
+    left_corner[1] = middle_corner[1] + 3 * min_dist * (cos((bearing + 90) * M_PI / 180));
+    right_corner[0] = middle_corner[0] + 3 * min_dist * (sin((bearing - 90) * M_PI / 180));
+    right_corner[1] = middle_corner[1] + 3 * min_dist * (cos((bearing - 90) * M_PI / 180));
     vertices.push_back(current_robot_destination);
     vertices.push_back(middle_corner);
     vertices.push_back(left_corner);

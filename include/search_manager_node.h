@@ -68,7 +68,7 @@ double camera_view_depth = 0.2; // [meters]
 std::vector<geometry_msgs::PoseStamped> poses(36);
 
 double obstacle_bearing;
-float min_dist = 0.15;
+float min_dist = 0.1;
 grid_map::Position current_robot_position;
 
 void set_new_goal();
