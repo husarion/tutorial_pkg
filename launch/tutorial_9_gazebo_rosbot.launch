@@ -16,10 +16,12 @@
 
     <include file="$(find tutorial_pkg)/launch/move_base.launch"></include>
 
-    <include file="$(find tutorial_pkg)/launch/find_object_3d.launch"></include>
+    <include file="$(find tutorial_pkg)/launch/find_object_3d_gazebo.launch"></include>
 
     <include file="$(find tutorial_pkg)/launch/frontier_exploration.launch"></include>
 
     <node pkg="tutorial_pkg" type="search_manager" name="search_manager" output="screen"/>
+
+    <include file="$(find tutorial_pkg)/launch/depthimage_to_laserscan.launch"></include>
 
 </launch>

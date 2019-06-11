@@ -1,0 +1,11 @@
+<launch>
+    <node name="find_object_3d" pkg="find_object_2d" type="find_object_2d" output="log" required="true">
+        <param name="gui" value="true" type="bool"/>
+        <param name="subscribe_depth" value="true" type="bool"/>
+        <param name="objects_path" value="$(find tutorial_pkg)/image_rec/" type="str"/>
+        <param name="object_prefix" value="object" type="str"/>
+        <remap from="rgb/image_rect_color" to="/camera/rgb/image_raw"/>
+        <remap from="depth_registered/image_raw" to="/camera/depth/image_raw"/>
+        <remap from="depth_registered/camera_info" to="/camera/depth/camera_info"/>
+    </node>
+</launch>
