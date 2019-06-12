@@ -235,6 +235,7 @@ void scanCallback(const sensor_msgs::LaserScanConstPtr &msg)
 
 void gridMapCallback(const nav_msgs::OccupancyGridConstPtr &msg)
 {
+    map_received = true;
     occupancyGridInput = new nav_msgs::OccupancyGrid();
     occupancyGridInput->header = msg->header;
     occupancyGridInput->info = msg->info;
@@ -358,6 +359,28 @@ void set_new_goal()
     }
 }
 
+void publish_outline(std::vector<grid_map::Position> outline)
+{
+    checked_area.polygon.points.clear();
+    outline_robobt.x = outline[0][0];
+    outline_robobt.y = outline[0][1];
+    outline_robobt.z = 0;
+    outline_left.x = outline[1][0];
+    outline_left.y = outline[1][1];
+    outline_left.z = 0;
+    outline_center.x = outline[2][0];
+    outline_center.y = outline[2][1];
+    outline_center.z = 0;
+    outline_right.x = outline[3][0];
+    outline_right.y = outline[3][1];
+    outline_right.z = 0;
+    checked_area.polygon.points.push_back(outline_robobt);
+    checked_area.polygon.points.push_back(outline_left);
+    checked_area.polygon.points.push_back(outline_center);
+    checked_area.polygon.points.push_back(outline_right);
+    outline_publisher.publish(checked_area);
+}
+
 grid_map::Position get_optimal_pose(grid_map::Position obstacle)
 {
     obstacle_bearing = 180 * bearing(obstacle[0], obstacle[1], robot_position[0], robot_position[1]) / M_PI;
@@ -366,6 +389,10 @@ grid_map::Position get_optimal_pose(grid_map::Position obstacle)
     if (!sm->check_obstacle_surrounding(&current_robot_position, &obstacle_bearing, camera_view_dist, min_dist, current_obstacle, obstacles, map))
     {
         set_new_goal();
+    }
+    else
+    {
+        publish_outline(sm->get_space_outline());
     }
     return current_robot_position;
 }
@@ -391,6 +418,7 @@ int main(int argc, char **argv)
     publisher_checked_obstacles = node.advertise<nav_msgs::OccupancyGrid>("/obstacles/checked", 1);
     publisher_pending_obstacles = node.advertise<nav_msgs::OccupancyGrid>("/obstacles/pending", 1);
     publisher_exploration_goal = node.advertise<geometry_msgs::PoseStamped>("/move_base_simple/goal", 1);
+    outline_publisher = node.advertise<geometry_msgs::PolygonStamped>("/checked_outline", 1);
     goal_pub = node.advertise<actionlib_msgs::GoalID>("/move_base/cancel", 1);
     explore_canceller = node.advertise<actionlib_msgs::GoalID>("/explore_server/cancel", 1);
     listener = new tf::TransformListener();
@@ -412,8 +440,9 @@ int main(int argc, char **argv)
     obstacles->setGeometry(map->getLength(), map->getResolution());
     obstacles->setPosition(map->getPosition());
 
-    ros::Rate rate(50.0);
+    checked_area.header.frame_id = "map";
 
+    ros::Rate rate(50.0);
     start_frontier_exploration();
 
     while (exploration_in_progress && node.ok() && !object_found)

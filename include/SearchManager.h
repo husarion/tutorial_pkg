@@ -6,7 +6,7 @@
 
 class SearchManager
 {
-  public:
+public:
     SearchManager();
     bool check_space_occupation(
         grid_map::Position *robot_dest,
@@ -57,4 +57,9 @@ class SearchManager
     frontier_exploration::ExploreTaskGoal createExplorationGoal();
 
     bool is_goal_reached(geometry_msgs::PoseStamped goal, tf::StampedTransform current_tf, double linear_threshold, double angular_threshold);
+
+    std::vector<grid_map::Position> get_space_outline();
+
+private:
+    std::vector<grid_map::Position> outline_vertices;
 };

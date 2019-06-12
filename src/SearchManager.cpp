@@ -60,37 +60,43 @@ bool SearchManager::check_space_occupation(grid_map::Position *robot_dest, doubl
     current_robot_destination[1] = current_obstacle[1] + dist_from_obstacle * (cos((bearing)*M_PI / 180));
     middle_corner[0] = current_obstacle[0] + min_dist * (sin((bearing)*M_PI / 180));
     middle_corner[1] = current_obstacle[1] + min_dist * (cos((bearing)*M_PI / 180));
-    left_corner[0] = middle_corner[0] + 3 * min_dist * (sin((bearing + 90) * M_PI / 180));
-    left_corner[1] = middle_corner[1] + 3 * min_dist * (cos((bearing + 90) * M_PI / 180));
-    right_corner[0] = middle_corner[0] + 3 * min_dist * (sin((bearing - 90) * M_PI / 180));
-    right_corner[1] = middle_corner[1] + 3 * min_dist * (cos((bearing - 90) * M_PI / 180));
+    left_corner[0] = middle_corner[0] + min_dist * (sin((bearing + 90) * M_PI / 180));
+    left_corner[1] = middle_corner[1] + min_dist * (cos((bearing + 90) * M_PI / 180));
+    right_corner[0] = middle_corner[0] + min_dist * (sin((bearing - 90) * M_PI / 180));
+    right_corner[1] = middle_corner[1] + min_dist * (cos((bearing - 90) * M_PI / 180));
+
+    outline_vertices.clear();
+    vertices.clear();
     vertices.push_back(current_robot_destination);
-    vertices.push_back(middle_corner);
+    outline_vertices.push_back(current_robot_destination);
     vertices.push_back(left_corner);
+    outline_vertices.push_back(left_corner);
+    vertices.push_back(middle_corner);
+    outline_vertices.push_back(middle_corner);
     vertices.push_back(right_corner);
+    outline_vertices.push_back(right_corner);
+
     polygon = grid_map::Polygon(vertices);
 
     int checked_points = 0;
     for (grid_map::PolygonIterator it(*obstacles, polygon); !it.isPastEnd(); ++it)
     {
         checked_points++;
-        if (obstacles->at("obstacles_found", *it) > 0.5)
+        float map_val = obstacles->at("obstacles_found", *it);
+        if (map_val > 0.5)
         {
             polygon_free = false;
         }
     }
 
-    for (grid_map::CircleIterator it(*map, current_robot_destination, 0.1); !it.isPastEnd(); ++it)
+    for (grid_map::CircleIterator it(*obstacles, current_robot_destination, 0.1); !it.isPastEnd(); ++it)
     {
-        float map_val = map->at("input_og", *it);
-        if (map_val >= 0)
-        {
-        }
-        else
+        float map_val = obstacles->at("obstacles_found", *it);
+        if (map_val > 0.5)
         {
             polygon_free = false;
             grid_map::Position known_pos;
-            map->getPosition(*it, known_pos);
+            obstacles->getPosition(*it, known_pos);
         }
     }
 
@@ -103,6 +109,11 @@ bool SearchManager::check_space_occupation(grid_map::Position *robot_dest, doubl
     {
         return false;
     }
+}
+
+std::vector<grid_map::Position> SearchManager::get_space_outline()
+{
+    return outline_vertices;
 }
 
 bool SearchManager::set_point_checked(float x, float y, grid_map::GridMap *gm, grid_map::Position obstacle)

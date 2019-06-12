@@ -11,6 +11,7 @@
 #include <sensor_msgs/LaserScan.h>
 #include <tf/transform_listener.h>
 #include <geometry_msgs/PoseStamped.h>
+#include <geometry_msgs/PolygonStamped.h>
 #include <visualization_msgs/Marker.h>
 #include <frontier_exploration/ExploreTaskAction.h>
 #include <actionlib/client/simple_action_client.h>
@@ -37,6 +38,7 @@ ros::Publisher publisher_exploration_goal;
 ros::Publisher vis_pub;
 ros::Publisher goal_pub;
 ros::Publisher explore_canceller;
+ros::Publisher outline_publisher;
 
 double angle_min;
 double angle_max;       //        # end angle of the scan [rad]
@@ -50,6 +52,11 @@ tf::Quaternion tf_q, tf_dest_quaternion;
 tf::TransformListener *listener;
 tf::StampedTransform ROSbot2_base_to_map_transform;
 geometry_msgs::Pose circle_element;
+geometry_msgs::PolygonStamped checked_area;
+geometry_msgs::Point32 outline_left;
+geometry_msgs::Point32 outline_right;
+geometry_msgs::Point32 outline_center;
+geometry_msgs::Point32 outline_robobt;
 grid_map::Position robot_position;
 grid_map::Position nearest_obstacle;
 grid_map::Position robot_destination;
@@ -63,12 +70,13 @@ bool exploration_in_progress;
 bool exploration_failed;
 bool object_search_in_progress;
 bool object_found;
+bool map_received = false;
 double camera_view_dist = 0.7;  // [meters]
 double camera_view_depth = 0.2; // [meters]
 std::vector<geometry_msgs::PoseStamped> poses(36);
 
 double obstacle_bearing;
-float min_dist = 0.1;
+float min_dist = 0.15;
 grid_map::Position current_robot_position;
 
 void set_new_goal();
@@ -78,3 +86,4 @@ grid_map::Position get_optimal_pose(grid_map::Position obstacle);
 
 void cancel_move_base_action();
 void cancel_exploration_action();
+void test_function_check_space_occupation();
