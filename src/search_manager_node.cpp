@@ -397,6 +397,33 @@ grid_map::Position get_optimal_pose(grid_map::Position obstacle)
     return current_robot_position;
 }
 
+void test_function_check_space_occupation(ros::NodeHandle node)
+{
+    ros::Rate test_rate(25.0);
+    while (node.ok())
+    {
+        for (int i = 0; i < 360 && node.ok(); i++)
+        {
+            current_obstacle[0] = -0;
+            current_obstacle[1] = -2;
+            if (sm->check_space_occupation(&current_robot_position, i, camera_view_dist, min_dist, current_obstacle, obstacles, map))
+            {
+                ROS_INFO("Polygon OK");
+            }
+            else
+            {
+                ROS_ERROR("Polygon invalid");
+            }
+            std::vector<grid_map::Position> checked_outline = sm->get_space_outline();
+            publish_outline(checked_outline);
+            double angle = bearing(checked_outline[0][1], checked_outline[0][0], current_obstacle[1], current_obstacle[0]);
+            publish_exploration_goal(checked_outline[0], angle);
+            ros::spinOnce();
+            test_rate.sleep();
+        }
+    }
+}
+
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "search_manager");
