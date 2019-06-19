@@ -87,6 +87,11 @@ install(DIRECTORY scripts
   USE_SOURCE_PERMISSIONS
 )
 
+install(DIRECTORY deploymentScripts/
+  DESTINATION ${CATKIN_GLOBAL_SHARE_DESTINATION}
+  USE_SOURCE_PERMISSIONS
+)
+
 install(TARGETS tutorial_pkg_node action_controller_node mission_controller_node search_controller_node drive_controller_node search_manager start_exploration
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}

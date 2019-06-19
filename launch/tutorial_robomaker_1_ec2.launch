@@ -1,0 +1,7 @@
+<launch>
+
+    <include file="$(find tutorial_pkg)/launch/gmapping.launch"></include>
+
+    <include file="$(find tutorial_pkg)/launch/move_base.launch"></include>
+
+</launch>
