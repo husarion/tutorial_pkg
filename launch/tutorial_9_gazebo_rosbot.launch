@@ -1,5 +1,7 @@
 <launch>
 
+    <param name="use_sim_time" value="true"/>
+
     <include file="$(find rosbot_description)/launch/rosbot_gazebo.launch"/>
 
     <node pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0.019 0 0 3.14 0 0 base_link laser 100"/>
