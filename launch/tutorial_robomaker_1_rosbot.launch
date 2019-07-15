@@ -6,6 +6,4 @@
         <arg name="rosbot_pro" value="$(arg rosbot_pro)" />
     </include>
     
-    <node name="remote_gmapping" pkg="tutorial_pkg" type="remote.sh" />
-
 </launch>
