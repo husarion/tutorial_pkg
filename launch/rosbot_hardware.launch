@@ -16,14 +16,10 @@
 
   <node pkg="tf" type="static_transform_publisher" name="camera_publisher" args="-0.03 0 0.18 0 0 0 base_link camera_link 100" />
 
-  <node if="$(eval rosbot_version == '2.0' and arg('rosbot_pro') == false)" pkg="rosserial_python" type="serial_node.py" name="serial_node">
-    <param name="port" value="/dev/ttyS1"/>
-    <param name="baud" value="500000"/>
-  </node>
+  <include if="$(eval rosbot_version == '2.0' and arg('rosbot_pro') == false)" file="$(find rosbot_ekf)/launch/all.launch" />
 
-  <node if="$(eval rosbot_version == '2.0_PRO' or arg('rosbot_pro') == true)" pkg="rosserial_python" type="serial_node.py" name="serial_node">
-    <param name="port" value="/dev/ttyS4"/>
-    <param name="baud" value="230400"/>
-  </node>
+  <include if="$(eval rosbot_version == '2.0_PRO' or arg('rosbot_pro') == true)" file="$(find rosbot_ekf)/launch/all.launch">
+    <arg name="rosbot_pro" value="true"/>
+  </include>
 
 </launch>
