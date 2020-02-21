@@ -1,0 +1,11 @@
+<launch>
+
+    <arg name="teach" default="true"/>
+    <arg name="recognize" default="false"/>
+
+    <include file="$(find astra_launch)/launch/astra.launch"/>
+    <include file="$(find rosbot_ekf)/launch/all.launch"/>
+
+    <node pkg="image_transport" type="republish" name="rgb_compress" args=" raw in:=/camera/rgb/image_raw compressed out:=/rgb_republish"/>
+
+</launch>
