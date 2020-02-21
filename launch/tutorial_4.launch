@@ -18,7 +18,7 @@
       <arg name="rosbot_pro" value="true" />
     </include> -->
     <include if="$(arg use_gazebo)" file="$(find rosbot_gazebo)/launch/$(arg chosen_world).launch"/>
-    <include file="$(find rosbot_description)/launch/rosbot_gazebo.launch"/>
+    <include if="$(arg use_gazebo)" file="$(find rosbot_description)/launch/rosbot_gazebo.launch"/>
     <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>
 
     <node pkg="find_object_2d" type="find_object_2d" name="find_object_2d">
