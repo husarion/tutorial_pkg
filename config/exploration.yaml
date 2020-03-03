@@ -1,21 +1,11 @@
-footprint: [[0.12, 0.14], [0.12, -0.14], [-0.12, -0.14], [-0.12, 0.14]]
-transform_tolerance: 5
-update_frequency: 1
-publish_frequency: 1
-global_frame: map
 robot_base_frame: base_link
-
-plugins: 
-    - {name: static,           type: "costmap_2d::StaticLayer"}
-    - {name: explore_boundary, type: "frontier_exploration::BoundedExploreLayer"}
-    - {name: inflation,        type: "costmap_2d::InflationLayer"}
-
-static:
-    map_topic: /map
-    subscribe_to_updates: true
-explore_boundary:
-    resize_to_boundary: false
-    frontier_travel_point: "middle" 
-    explore_clear_space: false
-inflation:
-    inflation_radius: 0.5
+costmap_topic: map
+costmap_updates_topic: map_updates
+visualize: true
+planner_frequency: 0.33
+progress_timeout: 30.0
+potential_scale: 3.0
+orientation_scale: 0.0
+gain_scale: 1.0
+transform_tolerance: 0.3
+min_frontier_size: 0.75
