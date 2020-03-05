@@ -6,12 +6,10 @@
 
     <node pkg="rviz" type="rviz" name="rviz" args="-d $(find tutorial_pkg)/rviz/tutorial_8.rviz"/>
 
-    <node pkg="tutorial_pkg" type="start_exploration" name="start_exploration"/>
-
     <include file="$(find tutorial_pkg)/launch/gmapping.launch"></include>
 
     <include file="$(find tutorial_pkg)/launch/move_base.launch"></include>
 
-    <include file="$(find tutorial_pkg)/launch/frontier_exploration.launch"></include>
+    <include file="$(find tutorial_pkg)/launch/exploration.launch" />
 
 </launch>
