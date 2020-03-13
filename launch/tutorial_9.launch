@@ -22,6 +22,8 @@
       <arg name="rosbot_pro" value="true" />
     </include> -->
 
+    <node if="$(arg use_rosbot)" pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0 0 0 3.14 0 0 base_link laser 100" />
+
     <node pkg="move_base" type="move_base" name="move_base" output="log">
 		<param name="controller_frequency" value="10.0" />
 		<rosparam file="$(find tutorial_pkg)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
