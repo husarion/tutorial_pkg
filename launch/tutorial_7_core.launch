@@ -6,8 +6,6 @@
         <arg name="rosbot_pro" value="$(arg rosbot_pro)" />
     </include>
 
-    <node pkg="tutorial_pkg" type="drive_controller_node" name="drive_controller"/>
-
     <include file="$(find tutorial_pkg)/launch/gmapping.launch"></include>
 
     <include file="$(find tutorial_pkg)/launch/move_base.launch"></include>
