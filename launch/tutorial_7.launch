@@ -39,6 +39,6 @@
     <rosparam file="$(find tutorial_pkg)/config/trajectory_planner.yaml" command="load" />
   </node>
 
-  <node pkg="rviz" type="rviz" name="rviz" args="-d $(find tutorial_pkg)/rviz/tutorial_7.rviz"/>
+  <node pkg="rviz" type="rviz" name="rviz"/>
 
 </launch>
