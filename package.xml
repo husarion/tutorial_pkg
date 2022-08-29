@@ -4,8 +4,8 @@
   <version>1.0.0</version>
   <description>Package for Husarion tutorials. This package is end effect after user completes all provided tutorials.</description>
 
-  <maintainer email="lukasz.mitka@husarion.com">Łukasz Mitka</maintainer>
-  <license>MIT</license>
+  <maintainer email="support@husarion.com">Husarion</maintainer>
+  <license>Apache License 2.0</license>
 
   <buildtool_depend>catkin</buildtool_depend>
   
