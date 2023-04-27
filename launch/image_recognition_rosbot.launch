@@ -1,0 +1,23 @@
+<launch>
+
+    <arg name="use_gazebo" default="false" />
+    <arg name="teach" default="false"/>
+
+    <!-- Gazebo -->
+    <group if="$(arg use_gazebo)">
+        <param name="use_sim_time" value="true" />
+        <include file="$(find rosbot_bringup)/launch/rosbot_tutorial.launch">
+            <arg if="$(arg teach)" name="world" value="image_teaching"/>
+            <arg unless="$(arg teach)" name="world" value="image_recognition"/>
+        </include>
+    </group>
+
+    <!-- ROSbot -->
+    <group unless="$(arg use_gazebo)">
+        <include file="$(find astra_camera)/launch/astra.launch"/>
+    </group>
+
+    <!-- Compress images -->
+    <node pkg="image_transport" type="republish" name="rgb_compress" args=" raw in:=/camera/color/image_raw compressed out:=/rgb_compressed"/>
+
+</launch>

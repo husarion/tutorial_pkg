@@ -1,0 +1,5 @@
+<launch>
+
+    <node pkg="tutorial_pkg" type="my_first_node" name="my_first_node" output="screen"/>
+
+</launch>

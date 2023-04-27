@@ -1,0 +1,25 @@
+<launch>
+
+   <arg name="use_gazebo" default="false" />
+   <arg name="map_name" default="map.yaml"/>
+
+   <!-- Localization -->
+   <include file="$(find tutorial_pkg)/launch/localization.launch">
+      <arg name="use_gazebo" value="$(arg use_gazebo)" />
+      <arg name="map_name" default="$(arg map_name)"/>
+   </include>
+
+   <!-- Path planning -->
+   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+      <rosparam file="$(find tutorial_pkg)/config/move_base.yaml" command="load" />
+      <rosparam file="$(find tutorial_pkg)/config/costmap_common.yaml" command="load" ns="global_costmap" /> 
+      <rosparam file="$(find tutorial_pkg)/config/costmap_common.yaml" command="load" ns="local_costmap" />
+      <rosparam file="$(find tutorial_pkg)/config/costmap_global.yaml" command="load" /> 
+      <rosparam file="$(find tutorial_pkg)/config/costmap_local.yaml" command="load" />
+      <rosparam file="$(find tutorial_pkg)/config/planner_global.yaml" command="load" />
+      <rosparam file="$(find tutorial_pkg)/config/planner_local.yaml" command="load" />
+   </node>
+
+   <node pkg="rviz" type="rviz" name="rviz" args="-d $(find tutorial_pkg)/rviz/move_base.rviz"/>
+
+</launch> 

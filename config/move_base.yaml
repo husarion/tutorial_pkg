@@ -1,0 +1,11 @@
+# Reff: http://wiki.ros.org/move_base
+recovery_behavior_enabled: true
+
+controller_frequency: 10.0
+controller_patience: 10.0
+planner_frequency: 5.0
+planner_patience: 5.0
+
+conservative_reset_dist: 6.0
+oscillation_timeout: 10.0
+oscillation_distance: 0.15

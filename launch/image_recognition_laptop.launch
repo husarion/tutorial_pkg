@@ -1,0 +1,21 @@
+<launch>
+
+    <arg name="use_gazebo" default="false" />
+    <arg name="teach" default="false"/>
+
+    <!-- Decompress images -->
+    <node pkg="image_transport" type="republish" name="rgb_decompress" args=" compressed in:=/rgb_compressed raw out:=/rgb_decompressed" >
+        <param name="compressed/mode" value="color"/>
+    </node>
+
+    <!-- Teleoperation - keyboard control -->
+    <node name="teleop_twist_keyboard" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen"/>
+
+    <!-- Object detection -->
+    <node pkg="find_object_2d" type="find_object_2d" name="find_object_2d">
+        <remap from="image" to="/rgb_decompressed"/>
+        <param name="gui" value="$(arg teach)"/>
+        <param unless="$(arg teach)" name="objects_path" value="$(find tutorial_pkg)/img_data/"/>
+    </node>
+
+</launch>

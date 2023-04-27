@@ -1,0 +1,12 @@
+# Reff: http://wiki.ros.org/costmap_2d
+local_costmap:
+    update_frequency: 5.0
+    publish_frequency: 2.0
+
+    obstacle_range: 2.5
+    raytrace_range: 2.5
+    static_map: false
+    
+    width: 2.5
+    height: 2.5
+    resolution: 0.02

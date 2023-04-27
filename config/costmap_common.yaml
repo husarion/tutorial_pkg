@@ -1,0 +1,12 @@
+# Reff: http://wiki.ros.org/costmap_2d
+global_frame: map
+robot_base_frame: base_link
+footprint: [[0.14, 0.14], [0.14, -0.14], [-0.14, -0.14], [-0.14, 0.14]]
+rolling_window: true
+
+inflation_radius: 0.5
+cost_scaling_factor: 4.0
+
+track_unknown_space: true
+observation_sources: scan
+scan: {sensor_frame: laser, data_type: LaserScan, topic: scan, marking: true, clearing: true}
