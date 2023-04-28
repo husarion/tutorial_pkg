@@ -1,25 +1,39 @@
 <?xml version="1.0"?>
-<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
-<package format="3">
-  <name>rosbot</name>
+<package format="2">
+  <name>tutorial_pkg</name>
   <version>1.0.0</version>
 
-  <description>Meta package that contains all packages of Rosbot 2 2R PRO</description>
+  <description>Meta package that contains all packages of ROS Tutorial</description>
   <license>Apache License 2.0</license>
 
   <author email="rafal.gorecki@husarion.com">Rafał Górecki</author>
   <maintainer email="support@husarion.com">Husarion</maintainer>
 
+
   <url type="website">https://husarion.com/</url>
   <url type="repository">https://github.com/husarion/rosbot_ros</url>
   <url type="bugtracker">https://github.com/husarion/rosbot_ros/issues</url>
 
-  <buildtool_depend>ament_cmake</buildtool_depend>
-
   <buildtool_depend>catkin</buildtool_depend>
+
   <depend>roscpp</depend>
+  <depend>tf</depend>
+  <depend>teleop_twist_keyboard</depend>
+  <depend>libopencv-dev</depend>
+  <depend>image_geometry</depend>
+  <depend>camera_info_manager</depend>
+  <depend>image_transport</depend>
+  <depend>image_publisher</depend>
+  <depend>plotjuggler_ros</depend>
+  <depend>rviz</depend>
+  <depend>find_object_2d</depend>
+  <depend>gmapping</depend>
+  <depend>map_server</depend>
+  <depend>amcl</depend>
+  <depend>move_base</depend>
+  <depend>explore_lite</depend>
 
   <export>
-    <build_type>ament_cmake</build_type>
+
   </export>
 </package>
