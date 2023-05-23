@@ -1,14 +1,15 @@
 <?xml version="1.0"?>
-<package format="2">
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
   <name>tutorial_pkg</name>
   <version>1.0.0</version>
   <description>Package for Husarion tutorials. This package is end effect after user completes all provided tutorials.</description>
-
   <maintainer email="support@husarion.com">Husarion</maintainer>
   <license>Apache License 2.0</license>
 
-  <buildtool_depend>catkin</buildtool_depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
   
+  <depend>rclcpp</depend>
   <depend>frontier_exploration</depend>
   <depend>grid_map_core</depend>
   <depend>grid_map_msgs</depend>
@@ -26,4 +27,7 @@
   <depend>astra_launch</depend>
   <depend>rplidar_ros</depend>
 
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
 </package>
