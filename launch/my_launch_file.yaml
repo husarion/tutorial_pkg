@@ -1,0 +1,13 @@
+launch:
+
+  - node:
+      pkg: "tutorial_pkg"
+      exec: "my_first_node"
+      name: "my_node"
+      remap:
+        - from: "/image"
+          to: "/your/camera/name"
+      param:
+        - name: "timer_period_s"
+          value: 1
+

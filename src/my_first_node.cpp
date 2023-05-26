@@ -12,10 +12,13 @@ class MyNode : public rclcpp::Node
 public:
    MyNode() : Node("my_node")
    {
+      declare_parameter("timer_period_s", 5);
+      auto timer_period_s = std::chrono::seconds(get_parameter("timer_period_s").as_int());
+
       subscriber_ = create_subscription<sensor_msgs::msg::Image>(
          "/image", 3, std::bind(&MyNode::image_callback, this, std::placeholders::_1));
-      publisher_ = create_publisher<std_msgs::msg::UInt8>("/brightness", 10);
-      timer_ = create_wall_timer(5s, std::bind(&MyNode::timer_callback, this));
+      publisher_ = create_publisher<std_msgs::msg::UInt8>("/brightness", 3);
+      timer_ = create_wall_timer(timer_period_s, std::bind(&MyNode::timer_callback, this));
       service_client_ = create_client<std_srvs::srv::Empty>("/save");
 
       RCLCPP_INFO(get_logger(), "Node started!");
@@ -38,6 +41,8 @@ private:
 
    void timer_callback()
    {
+      RCLCPP_INFO(get_logger(), "Timer activate");
+
       if (!service_client_->wait_for_service(1s))
       {
          RCLCPP_ERROR(get_logger(), "Failed to connect to the image save service");
