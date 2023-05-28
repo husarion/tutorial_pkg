@@ -5,9 +5,30 @@ launch:
       exec: "my_first_node"
       name: "my_node"
       remap:
-        - from: "/image"
-          to: "/your/camera/name"
+        - 
+          from: "/image"
+          to: "/your/camera/image"
       param:
-        - name: "timer_period_s"
-          value: 1
+        - 
+          name: "timer_period_s"
+          value: 2
+
+  - node:
+      pkg: "image_view"
+      exec: "image_saver"
+      name: "image_saver"
+      remap:
+        - 
+          from: "/image"
+          to: "/your/camera/image"
+        - 
+          from: "/camera_info"
+          to: "/your/camera/camera_info"
+      param:
+        - 
+          name: "save_all_image"
+          value: false
+        - 
+          name: "filename_format"
+          value: "./saved_images/image%04d.%s"
 

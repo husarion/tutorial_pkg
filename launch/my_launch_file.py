@@ -7,8 +7,16 @@ def generate_launch_description():
         package="tutorial_pkg",
         executable="my_first_node",
         name="my_node",
-        remappings=[("/image", "/your/camera/name")],
-        parameters=[{"timer_period_s": 1}]
+        remappings=[("/image", "/your/camera/image")],
+        parameters=[{"timer_period_s": 2}]
     )
 
-    return LaunchDescription([my_node])
+    image_saver = Node(
+        package="image_view",
+        executable="image_saver",
+        name="image_saver",
+        remappings=[("/image", "/your/camera/image"), ("/camera_info", "/your/camera/camera_info")],
+        parameters=[{"save_all_image": False, "filename_format": "./saved_images/image%04d.%s"}]
+    )
+
+    return LaunchDescription([my_node, image_saver])

@@ -5,21 +5,25 @@
 #include "std_msgs/msg/u_int8.hpp"
 #include "std_msgs/msg/string.hpp"
 #include "std_srvs/srv/empty.hpp"
+#include "std_srvs/srv/trigger.hpp"
 
+using namespace std::placeholders;
 using namespace std::chrono_literals;
+
 class MyNode : public rclcpp::Node
 {
 public:
    MyNode() : Node("my_node")
-   {
+   {      
       declare_parameter("timer_period_s", 5);
       auto timer_period_s = std::chrono::seconds(get_parameter("timer_period_s").as_int());
 
       subscriber_ = create_subscription<sensor_msgs::msg::Image>(
-         "/image", 3, std::bind(&MyNode::image_callback, this, std::placeholders::_1));
+         "/image", 3, std::bind(&MyNode::image_callback, this, _1));
       publisher_ = create_publisher<std_msgs::msg::UInt8>("/brightness", 3);
       timer_ = create_wall_timer(timer_period_s, std::bind(&MyNode::timer_callback, this));
-      service_client_ = create_client<std_srvs::srv::Empty>("/save");
+      client_ = create_client<std_srvs::srv::Empty>("/save");
+      server_ = create_service<std_srvs::srv::Trigger>("/image_counter", std::bind(&MyNode::counter_callback, this, _1, _2));
 
       RCLCPP_INFO(get_logger(), "Node started!");
    }
@@ -43,20 +47,30 @@ private:
    {
       RCLCPP_INFO(get_logger(), "Timer activate");
 
-      if (!service_client_->wait_for_service(1s))
+      if (!client_->wait_for_service(1s))
       {
          RCLCPP_ERROR(get_logger(), "Failed to connect to the image save service");
          return;
       }
 
+      saved_imgs_++;
       auto request = std::make_shared<std_srvs::srv::Empty::Request>();
-      auto future = service_client_->async_send_request(request);
+      auto future = client_->async_send_request(request);
    }
 
+   void counter_callback(const std_srvs::srv::Trigger::Request::SharedPtr req,
+      const std_srvs::srv::Trigger::Response::SharedPtr res)
+   {
+      res->success = 1;
+      res->message = "Saved images: " + std::to_string(saved_imgs_);
+   }
+
+   uint saved_imgs_ = 0;
    rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr subscriber_;
    rclcpp::Publisher<std_msgs::msg::UInt8>::SharedPtr publisher_;
    rclcpp::TimerBase::SharedPtr timer_;
-   rclcpp::Client<std_srvs::srv::Empty>::SharedPtr service_client_;
+   rclcpp::Client<std_srvs::srv::Empty>::SharedPtr client_;
+   rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr server_;
 };
 
 int main(int argc, char **argv)
