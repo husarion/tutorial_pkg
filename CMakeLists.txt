@@ -12,16 +12,27 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(geometry_msgs REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_ros REQUIRED)
 
 add_executable(my_first_node src/my_first_node.cpp)
 ament_target_dependencies(my_first_node rclcpp sensor_msgs std_msgs std_srvs)
 
+add_executable(tf_broadcaster src/tf_broadcaster.cpp)
+ament_target_dependencies(tf_broadcaster rclcpp tf2 tf2_ros)
+
+add_executable(tf_listener src/tf_listener.cpp)
+ament_target_dependencies(tf_listener rclcpp tf2 tf2_ros)
+
 install(TARGETS
   my_first_node
+  tf_broadcaster
+  tf_listener
   DESTINATION lib/${PROJECT_NAME}
 )
 
