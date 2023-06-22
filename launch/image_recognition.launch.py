@@ -19,14 +19,23 @@ def generate_launch_description():
         package='find_object_2d',
         executable='find_object_2d',
         name='find_object_2d',
-        remappings=[('image', '/camera/color/image_raw')],
+        remappings=[('image', '/your/camera/image')], # Change topic
         parameters=[{
             'gui': teach,
             'objects_path': get_package_share_directory('tutorial_pkg') + '/img_data/' if LaunchConfigurationEquals('teach', 'false') else ''
         }]
     )
 
+    # Object tracking
+    track_obj = Node(
+        package='tutorial_pkg',
+        executable='track_obj',
+        name='track_obj',
+        condition=LaunchConfigurationEquals("teach", "true"),
+    )
+
     return LaunchDescription([
         teach_arg,
-        find_object_2d
+        find_object_2d,
+        track_obj
     ])

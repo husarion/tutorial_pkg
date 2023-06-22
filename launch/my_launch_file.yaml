@@ -7,7 +7,7 @@ launch:
       remap:
         - 
           from: "/image"
-          to: "/your/camera/image"
+          to: "/your/camera/image" # Change topic
       param:
         - 
           name: "timer_period_s"
@@ -20,10 +20,10 @@ launch:
       remap:
         - 
           from: "/image"
-          to: "/your/camera/image"
+          to: "/your/camera/image" # Change topic
         - 
           from: "/camera_info"
-          to: "/your/camera/camera_info"
+          to: "/your/camera/camera_info" # Change topic
       param:
         - 
           name: "save_all_image"

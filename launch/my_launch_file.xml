@@ -1,15 +1,15 @@
 <launch>
 
     <node pkg="tutorial_pkg" exec="my_first_node" name="my_node">
-        <remap from="/image" to="/your/camera/image"/>
+        <remap from="/image" to="/your/camera/image"/> <!-- Change topic -->
         <param name="timer_period_s" value="2"/>
     </node>
 
     <node pkg="image_view" exec="image_saver" name="image_saver">
         <remap from="/image" to="/your/camera/image"/>
-        <remap from="/camera_info" to="/your/camera/camera_info"/>
+        <remap from="/camera_info" to="/your/camera/camera_info"/> <!-- Change topic -->
         <param name="save_all_image" value="false"/>
-        <param name="filename_format" value="./saved_images/image%04d.%s"/>
+        <param name="filename_format" value="./saved_images/image%04d.%s"/> <!-- Change topic -->
     </node>
 
 </launch>
