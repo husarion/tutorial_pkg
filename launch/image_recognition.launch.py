@@ -31,7 +31,7 @@ def generate_launch_description():
         package='tutorial_pkg',
         executable='track_obj',
         name='track_obj',
-        condition=LaunchConfigurationEquals("teach", "true"),
+        condition=LaunchConfigurationEquals("teach", "false"),
     )
 
     return LaunchDescription([
