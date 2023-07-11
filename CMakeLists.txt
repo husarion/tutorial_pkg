@@ -48,6 +48,7 @@ install(TARGETS
 )
 
 install(DIRECTORY 
+  config
   launch
   img_data
   DESTINATION share/${PROJECT_NAME})
