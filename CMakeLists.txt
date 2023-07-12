@@ -51,6 +51,7 @@ install(DIRECTORY
   config
   launch
   img_data
+  maps
   DESTINATION share/${PROJECT_NAME})
 
 ament_package()
