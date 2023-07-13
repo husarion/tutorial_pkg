@@ -34,10 +34,8 @@ def generate_launch_description():
         condition=LaunchConfigurationEquals("teach", "false"),
     )
 
-    ld = LaunchDescription()
-
-    ld.add_action(teach_arg)
-    ld.add_action(find_object_2d)
-    ld.add_action(track_obj)
-
-    return ld
+    return LaunchDescription([
+        teach_arg,
+        find_object_2d,
+        track_obj
+    ])
