@@ -17,14 +17,14 @@ slam:
     mode: mapping
     debug_logging: false
     throttle_scans: 1
-    transform_publish_period: 0.02 #if 0 never publishes odometry
+    transform_publish_period: 0.02 # If 0 never publishes odometry
     map_update_interval: 2.0
     resolution: 0.04
-    max_laser_range: 15.0 #for rastering images
+    max_laser_range: 12.0
     minimum_time_interval: 0.1
     transform_timeout: 0.2
     tf_buffer_duration: 20.0
-    stack_size_to_use: 40000000 #// program needs a larger stack size to serialize large maps
+    stack_size_to_use: 40000000
     enable_interactive_mode: false
 
     # General Parameters

@@ -52,6 +52,7 @@ install(DIRECTORY
   launch
   img_data
   maps
+  rviz
   DESTINATION share/${PROJECT_NAME})
 
 ament_package()

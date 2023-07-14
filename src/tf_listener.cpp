@@ -9,7 +9,6 @@
 #include "tf2_ros/buffer.h"
 #include "tf2_ros/transform_listener.h"
 
-
 using namespace std::chrono_literals;
 
 class TF_Listener : public rclcpp::Node
@@ -27,20 +26,18 @@ public:
 private:
   void timer_callback()
   {
-    try
-    { 
-      geometry_msgs::msg::TransformStamped transform = tf_buffer_->lookupTransform("map", "robot", tf2::TimePointZero);
-      
+    try {
+      geometry_msgs::msg::TransformStamped transform =
+        tf_buffer_->lookupTransform("map", "robot", tf2::TimePointZero);
+
       geometry_msgs::msg::Quaternion q_msg = transform.transform.rotation;
       tf2::Quaternion q_tf(q_msg.x, q_msg.y, q_msg.z, q_msg.w);
       tf2::Matrix3x3 m(q_tf);
-      
+
       double roll, pitch, yaw;
       m.getRPY(roll, pitch, yaw);
       RCLCPP_INFO(this->get_logger(), "Yaw: %f", yaw);
-    } 
-    catch (const tf2::TransformException & ex)
-    {
+    } catch (const tf2::TransformException & ex) {
       RCLCPP_INFO(this->get_logger(), "Could not transform: %s", ex.what());
     }
   }
@@ -57,5 +54,3 @@ int main(int argc, char * argv[])
   rclcpp::shutdown();
   return 0;
 }
-
-
