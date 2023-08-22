@@ -1,10 +1,11 @@
 amcl:
   ros__parameters:
+    use_sim_time: True
     alpha1: 0.2
-    alpha2: 0.3
-    alpha3: 0.3
+    alpha2: 0.2
+    alpha3: 0.2
     alpha4: 0.2
-    alpha5: 0.3
+    alpha5: 0.2
     base_frame_id: "base_link"
     beam_skip_distance: 0.5
     beam_skip_error_threshold: 0.9
@@ -17,12 +18,12 @@ amcl:
     laser_min_range: -1.0
     laser_model_type: "likelihood_field"
     max_beams: 60
-    max_particles: 1000
-    min_particles: 200
+    max_particles: 500
+    min_particles: 50
     odom_frame_id: "odom"
     pf_err: 0.05
     pf_z: 0.99
-    recovery_alpha_fast: 0.05
+    recovery_alpha_fast: 0.1
     recovery_alpha_slow: 0.001
     resample_interval: 1
     robot_model_type: "nav2_amcl::DifferentialMotionModel"

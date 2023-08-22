@@ -3,29 +3,31 @@
 <package format="3">
   <name>tutorial_pkg</name>
   <version>1.0.0</version>
+
   <description>Package for Husarion tutorials. This package is end effect after user completes all provided tutorials.</description>
-  <maintainer email="support@husarion.com">Husarion</maintainer>
   <license>Apache License 2.0</license>
 
+  <author email="rafal.gorecki@husarion.com">Rafal Gorecki</author>
+  <maintainer email="support@husarion.com">Husarion</maintainer>
+
+  <url type="website">https://husarion.com/</url>
+  <url type="repository">https://github.com/husarion/tutorial_pkg</url>
+  <url type="bugtracker">https://github.com/husarion/tutorial_pkg/issues</url>
+
   <buildtool_depend>ament_cmake</buildtool_depend>
-  
-  <depend>rclcpp</depend>
-  <depend>frontier_exploration</depend>
-  <depend>grid_map_core</depend>
-  <depend>grid_map_msgs</depend>
-  <depend>grid_map_ros</depend>
-  <depend>nav_msgs</depend>
-  <depend>roscpp</depend>
-  <depend>sensor_msgs</depend>
-  <depend>tf</depend>
-  <depend>rosbot_description</depend>
-  <depend>rosbot_gazebo</depend>
-  <depend>depthimage_to_laserscan</depend>
-  <depend>gmapping</depend>
-  <depend>move_base</depend>
+
+    <depend>rclcpp</depend>
+    <depend>launch</depend>
+    <depend>launch_ros</depend>
+    <depend>tf2</depend>
+    <depend>teleop_twist_keyboard</depend>
   <depend>find_object_2d</depend>
-
-
+  <depend>libopencv-dev</depend>
+  <depend>slam_toolbox</depend>
+  <depend>navigation2</depend>
+  <depend>nav2_bringup</depend>
+  <!-- <depend>explore_lite</depend> -->
+    
   <export>
     <build_type>ament_cmake</build_type>
   </export>
