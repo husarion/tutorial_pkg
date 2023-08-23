@@ -26,7 +26,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: LaserScan
   - Class: nav2_rviz_plugins/Navigation 2
     Name: Navigation 2
 Visualization Manager:
@@ -89,6 +89,16 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
+        antenna_connector_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        antenna_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         base_link:
           Alpha: 1
           Show Axes: false
@@ -98,19 +108,67 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        camera_bottom_screw_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_color_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_color_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_depth_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_depth_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_infra1_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_infra1_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_infra2_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_infra2_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
         camera_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
+          Value: true
+        camera_mount_bot_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        camera_mount_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        camera_mount_mid_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        camera_mount_top_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         cover_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        depth:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        fl_range:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -119,10 +177,6 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
-        fr_range:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
         fr_wheel_link:
           Alpha: 1
           Show Axes: false
@@ -136,30 +190,17 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-        orbbec_astra_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        rl_range:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
         rl_wheel_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        rr_range:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
         rr_wheel_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
           Value: true
-        slamtec_rplidar_a2_link:
+        slamtec_rplidar_s1_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
@@ -409,11 +450,11 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Scale: -117.01599884033203
+      Scale: -78.5948257446289
       Target Frame: <Fixed Frame>
       Value: TopDownOrtho (rviz_default_plugins)
-      X: -3.048299551010132
-      Y: 4.044673442840576
+      X: 1.0458060503005981
+      Y: -0.47266408801078796
     Saved: ~
 Window Geometry:
   Displays:

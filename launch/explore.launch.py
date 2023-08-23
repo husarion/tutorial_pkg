@@ -32,7 +32,7 @@ def generate_launch_description():
         PythonLaunchDescriptionSource(os.path.join(tutorial_dir, 'launch', 'slam.launch.py')),
         launch_arguments={
             'use_sim_time': use_sim_time,
-            'params_file': params_file,
+            'use_rviz': 'false'
         }.items(),
     )
 
@@ -41,7 +41,6 @@ def generate_launch_description():
         launch_arguments={
             'use_sim_time': use_sim_time,
             'params_file': params_file,
-            'container_name': 'nav2_container',
         }.items(),
     )
 
@@ -49,7 +48,6 @@ def generate_launch_description():
         PythonLaunchDescriptionSource([explore_lite_launch]),
         launch_arguments={
             'use_sim_time': use_sim_time,
-            'container_name': 'nav2_container',
         }.items(),
     )
 
