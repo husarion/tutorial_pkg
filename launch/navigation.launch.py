@@ -10,20 +10,18 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     tutorial_dir = get_package_share_directory('tutorial_pkg')
-    nav2_launch_file_dir = os.path.join(get_package_share_directory('nav2_bringup'), 'launch')
+    nav2_bringup_launch_file_dir = os.path.join(
+        get_package_share_directory('nav2_bringup'), 'launch', 'bringup_launch.py'
+    )
 
     map_yaml_file = LaunchConfiguration('map')
-    use_sim_time = LaunchConfiguration('use_sim_time', default='false')
     params_file = LaunchConfiguration('params_file')
+    use_sim_time = LaunchConfiguration('use_sim_time')
 
     declare_map_yaml_cmd = DeclareLaunchArgument(
         'map',
         default_value=os.path.join(tutorial_dir, 'maps', 'map.yaml'),
         description='Full path to map yaml file to load',
-    )
-
-    declare_use_sim_time_cmd = DeclareLaunchArgument(
-        'use_sim_time', default_value='false', description='Use simulation (Gazebo) clock if true'
     )
 
     declare_params_file_cmd = DeclareLaunchArgument(
@@ -32,12 +30,16 @@ def generate_launch_description():
         description='Full path to the ROS2 parameters file to use for all launched nodes',
     )
 
-    nav2_bringup_node = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([nav2_launch_file_dir, '/bringup_launch.py']),
+    declare_use_sim_time_cmd = DeclareLaunchArgument(
+        'use_sim_time', default_value='false', description='Use simulation (Gazebo) clock if true'
+    )
+
+    nav2_bringup_launch = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([nav2_bringup_launch_file_dir]),
         launch_arguments={
             'map': map_yaml_file,
-            'use_sim_time': use_sim_time,
             'params_file': params_file,
+            'use_sim_time': use_sim_time,
         }.items(),
     )
 
@@ -59,10 +61,10 @@ def generate_launch_description():
     ld = LaunchDescription()
 
     ld.add_action(declare_map_yaml_cmd)
-    ld.add_action(declare_use_sim_time_cmd)
     ld.add_action(declare_params_file_cmd)
+    ld.add_action(declare_use_sim_time_cmd)
 
-    ld.add_action(nav2_bringup_node)
+    ld.add_action(nav2_bringup_launch)
     ld.add_action(rviz_node)
 
     return ld
