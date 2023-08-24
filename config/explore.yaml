@@ -98,9 +98,9 @@ controller_server:
       # Velocity/accelaration limits also have to be adjusted in the velocity smoother
       desired_linear_vel: 0.4
       lookahead_dist: 0.6
-      min_lookahead_dist: 0.3
+      min_lookahead_dist: 0.4
       max_lookahead_dist: 0.9
-      lookahead_time: 1.5
+      lookahead_time: 2.0
       transform_tolerance: 0.1
       use_velocity_scaled_lookahead_dist: true
       min_approach_linear_velocity: 0.1
@@ -112,7 +112,7 @@ controller_server:
       use_cost_regulated_linear_velocity_scaling: false # Whether to use the regulated features for proximity to obstacles (e.g. slow in close proximity to obstacles).
 
       regulated_linear_scaling_min_radius: 0.9
-      regulated_linear_scaling_min_speed: 0.25
+      regulated_linear_scaling_min_speed: 0.1
       allow_reversing: false
       use_rotate_to_heading: true
       rotate_to_heading_min_angle: 0.785
