@@ -12,6 +12,7 @@ endif()
 
 # find dependencies
 find_package(OpenCV REQUIRED)
+find_package(cv_bridge REQUIRED)
 
 find_package(ament_cmake REQUIRED)
 find_package(geometry_msgs REQUIRED)
@@ -29,7 +30,7 @@ add_executable(img_control src/img_control.cpp)
 ament_target_dependencies(img_control rclcpp geometry_msgs std_msgs)
 
 add_executable(track_obj src/track_obj.cpp)
-ament_target_dependencies(track_obj rclcpp OpenCV geometry_msgs std_msgs)
+ament_target_dependencies(track_obj rclcpp OpenCV cv_bridge geometry_msgs sensor_msgs std_msgs)
 
 add_executable(tf_broadcaster src/tf_broadcaster.cpp)
 ament_target_dependencies(tf_broadcaster rclcpp geometry_msgs tf2 tf2_ros)
@@ -47,10 +48,9 @@ install(TARGETS
   DESTINATION lib/${PROJECT_NAME}
 )
 
-install(DIRECTORY 
+install(DIRECTORY
   config
   launch
-  img_data
   maps
   rviz
   DESTINATION share/${PROJECT_NAME})

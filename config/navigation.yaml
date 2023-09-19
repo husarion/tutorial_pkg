@@ -63,7 +63,8 @@ behavior_server:
     global_costmap_topic: global_costmap/costmap_raw
     global_footprint_topic: global_costmap/published_footprint
     cycle_frequency: 10.0
-    behavior_plugins: ["spin", "backup", "drive_on_heading", "wait", "assisted_teleop"]
+    behavior_plugins:
+      ["spin", "backup", "drive_on_heading", "wait", "assisted_teleop"]
     spin:
       plugin: "nav2_behaviors/Spin"
     backup:
@@ -152,7 +153,7 @@ controller_server:
     controller_plugins: ["FollowPath"]
     FollowPath:
       plugin: "nav2_regulated_pure_pursuit_controller::RegulatedPurePursuitController"
-      
+
       # Velocity/accelaration limits also have to be adjusted in the velocity smoother
       desired_linear_vel: 0.4
       lookahead_dist: 0.6

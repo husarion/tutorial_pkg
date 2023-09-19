@@ -1,6 +1,5 @@
 slam:
   ros__parameters:
-
     # Plugin params
     solver_plugin: solver_plugins::CeresSolver
     ceres_linear_solver: SPARSE_NORMAL_CHOLESKY
@@ -22,7 +21,7 @@ slam:
     # scan_queue_size: 1
     # map_file_name: /home/aayli/Husarion/ros2_ws/src/tutorial_pkg/maps/map_serialized
     # map_start_pose: [0.0, 0.0, 0.0]
-    # map_start_at_dock: true    
+    # map_start_at_dock: true
     debug_logging: true
 
     throttle_scans: 1
