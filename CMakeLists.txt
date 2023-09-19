@@ -26,9 +26,6 @@ find_package(tf2_ros REQUIRED)
 add_executable(my_first_node src/my_first_node.cpp)
 ament_target_dependencies(my_first_node rclcpp sensor_msgs std_msgs std_srvs)
 
-add_executable(img_control src/img_control.cpp)
-ament_target_dependencies(img_control rclcpp geometry_msgs std_msgs)
-
 add_executable(track_obj src/track_obj.cpp)
 ament_target_dependencies(track_obj rclcpp OpenCV cv_bridge geometry_msgs sensor_msgs std_msgs)
 
