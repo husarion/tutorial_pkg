@@ -38,7 +38,6 @@ ament_target_dependencies(tf_listener rclcpp geometry_msgs tf2 tf2_ros)
 
 install(TARGETS
   my_first_node
-  img_control
   track_obj
   tf_broadcaster
   tf_listener
