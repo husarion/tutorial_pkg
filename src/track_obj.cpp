@@ -69,21 +69,21 @@ private:
         vel_msg.angular.z = ang_vel;
       }
 
-      // Draw a rectangle around the tracked object
-      rectangle(frame, obj, Scalar(255, 0, 0), 2, 1);
+      RCLCPP_INFO(get_logger(), "Angular velocity: %f", vel_msg.angular.z);
     }
     else {
       // Log a warning message if tracking fails and display it on the image
-      RCLCPP_WARN(get_logger(), "Tracking failure detected");
+      RCLCPP_WARN(get_logger(), "Tracking failure detected. Stop vehicle!");
       putText(frame, "Tracking failure detected", Point(100, 80), FONT_HERSHEY_SIMPLEX, 0.75, Scalar(0, 0, 255), 2);
     }
 
     // Log and publish the calculated angular velocity
-    RCLCPP_INFO(get_logger(), "Angular velocity: %f", vel_msg.angular.z);
     vel_pub_->publish(vel_msg);
 
-    // Publish visualization
+    // Publish visualization with rectangle around the tracked object
     if (visualization_) {
+      rectangle(frame, obj, Scalar(255, 0, 0), 2, 1);
+
       cv_image->image = frame;
       auto img_msg = cv_image->toImageMsg();
       track_pub_->publish(*img_msg);

@@ -17,7 +17,6 @@ def generate_launch_description():
         executable='track_obj',
         name='track_obj',
         remappings=[('/image', '/your/camera/image')],  # Change topic as needed
-        condition=UnlessCondition(LaunchConfiguration('visualization')),
     )
 
     return LaunchDescription([visualization_arg, track_obj])
