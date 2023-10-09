@@ -26,11 +26,11 @@ public:
     // Publishers
     vel_pub_ = create_publisher<geometry_msgs::msg::Twist>("/cmd_vel", rclcpp::SystemDefaultsQoS());
     if (visualization_) {
-      track_pub_ = create_publisher<sensor_msgs::msg::Image>("/visualization", rclcpp::SensorDataQoS());
+      visualization_pub_ = create_publisher<sensor_msgs::msg::Image>("/visualization", rclcpp::SensorDataQoS());
     }
 
     // Subscribers
-    obj_sub_ = create_subscription<sensor_msgs::msg::Image>("/image", rclcpp::SensorDataQoS(), bind(&TrackObjNode::objectCallback, this, _1));
+    img_sub_ = create_subscription<sensor_msgs::msg::Image>("/image", rclcpp::SensorDataQoS(), bind(&TrackObjNode::objectCallback, this, _1));
 
     RCLCPP_INFO(get_logger(), "Node started!");
   }
@@ -86,13 +86,13 @@ private:
 
       cv_image->image = frame;
       auto img_msg = cv_image->toImageMsg();
-      track_pub_->publish(*img_msg);
+      visualization_pub_->publish(*img_msg);
     }
   }
 
   rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr vel_pub_;
-  rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr track_pub_;
-  rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr obj_sub_;
+  rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr visualization_pub_;
+  rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr img_sub_;
   Ptr<Tracker> tracker_;
   bool is_tracker_initialized_;
   bool visualization_;
