@@ -6,19 +6,12 @@ using namespace std::placeholders;
 
 Tracker::Tracker() : Node("tracker"), _is_tracker_initialized(false)
 {
-  // Parameters
-  declare_parameter<bool>("visualization", false);
-  get_parameter("visualization", _visualization);
-
-  // Publishers
-  _vel_pub = create_publisher<geometry_msgs::msg::Twist>("/cmd_vel", rclcpp::SystemDefaultsQoS());
-  if (_visualization)
-  {
-    _visualization_pub = create_publisher<sensor_msgs::msg::Image>("/visualization", rclcpp::SensorDataQoS());
-  }
-
   // Subscribers
   _img_sub = create_subscription<sensor_msgs::msg::Image>("/image", rclcpp::SensorDataQoS(), bind(&Tracker::_imageCallback, this, _1));
+
+  // Publishers
+  _visualization_pub = create_publisher<sensor_msgs::msg::Image>("/visualization", rclcpp::SensorDataQoS());
+  _vel_pub = create_publisher<geometry_msgs::msg::Twist>("/cmd_vel", rclcpp::SystemDefaultsQoS());
 
   RCLCPP_INFO(get_logger(), "Node started!");
 }
@@ -40,15 +33,7 @@ void Tracker::_imageCallback(const sensor_msgs::msg::Image::SharedPtr msg)
 
   if (ok) {
     // Calculate angular speed based on the position of the object
-    int obj_x_center = obj.x + obj.width / 2;
-    int px_to_center = msg->width / 2 - obj_x_center;
-    float ang_vel = ANGULAR_GAIN * px_to_center / static_cast<float>(msg->width);
-
-    // Ensure angular velocity is within bounds
-    if ((ang_vel >= -MAX_ANG_VEL && ang_vel <= -MIN_ANG_VEL) || (ang_vel >= MIN_ANG_VEL && ang_vel <= MAX_ANG_VEL)) {
-      vel_msg.angular.z = ang_vel;
-    }
-
+    _designateControl(vel_msg, obj, msg->width);
     RCLCPP_INFO(get_logger(), "Angular velocity: %0.2f", vel_msg.angular.z);
   }
   else {
@@ -58,13 +43,11 @@ void Tracker::_imageCallback(const sensor_msgs::msg::Image::SharedPtr msg)
   }
 
   // Publish visualization with rectangle around the tracked object
-  if (_visualization) {
-    rectangle(frame, obj, cv::Scalar(255, 0, 0), 2, 1);
+  rectangle(frame, obj, cv::Scalar(255, 0, 0), 2, 1);
 
-    cv_image->image = frame;
-    auto img_msg = cv_image->toImageMsg();
-    _visualization_pub->publish(*img_msg);
-  }
+  cv_image->image = frame;
+  auto img_msg = cv_image->toImageMsg();
+  _visualization_pub->publish(*img_msg);
 }
 
 void Tracker::_initTracker(cv::Mat frame, cv::Rect obj)
@@ -75,6 +58,18 @@ void Tracker::_initTracker(cv::Mat frame, cv::Rect obj)
   _is_tracker_initialized = true;
   cv::destroyWindow("ROI selector");
   cv::waitKey(1);
+}
+
+void Tracker::_designateControl(geometry_msgs::msg::Twist &vel_msg, cv::Rect obj, uint32_t img_width)
+{
+    int obj_x_center = obj.x + obj.width / 2;
+    int px_to_center = img_width / 2 - obj_x_center;
+    float ang_vel = ANGULAR_GAIN * px_to_center / static_cast<float>(img_width);
+
+    // Ensure angular velocity is within bounds
+    if ((ang_vel >= -MAX_ANG_VEL && ang_vel <= -MIN_ANG_VEL) || (ang_vel >= MIN_ANG_VEL && ang_vel <= MAX_ANG_VEL)) {
+      vel_msg.angular.z = ang_vel;
+    }
 }
 
 
