@@ -30,14 +30,13 @@ def generate_launch_description():
 
     slam_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(os.path.join(tutorial_dir, 'launch', 'slam.launch.py')),
-        launch_arguments={
-            'use_sim_time': use_sim_time,
-            'use_rviz': 'false'
-        }.items(),
+        launch_arguments={'use_sim_time': use_sim_time, 'use_rviz': 'false'}.items(),
     )
 
     nav2_bringup_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(os.path.join(nav2_bringup_dir, 'launch', 'navigation_launch.py')),
+        PythonLaunchDescriptionSource(
+            os.path.join(nav2_bringup_dir, 'launch', 'navigation_launch.py')
+        ),
         launch_arguments={
             'use_sim_time': use_sim_time,
             'params_file': params_file,

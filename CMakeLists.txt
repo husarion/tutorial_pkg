@@ -12,6 +12,7 @@ endif()
 
 # find dependencies
 find_package(OpenCV REQUIRED)
+find_package(cv_bridge REQUIRED)
 
 find_package(ament_cmake REQUIRED)
 find_package(geometry_msgs REQUIRED)
@@ -22,14 +23,15 @@ find_package(std_srvs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_ros REQUIRED)
 
+include_directories(
+  include
+)
+
 add_executable(my_first_node src/my_first_node.cpp)
 ament_target_dependencies(my_first_node rclcpp sensor_msgs std_msgs std_srvs)
 
-add_executable(img_control src/img_control.cpp)
-ament_target_dependencies(img_control rclcpp geometry_msgs std_msgs)
-
-add_executable(track_obj src/track_obj.cpp)
-ament_target_dependencies(track_obj rclcpp OpenCV geometry_msgs std_msgs)
+add_executable(tracker src/tracker.cpp)
+ament_target_dependencies(tracker rclcpp OpenCV cv_bridge geometry_msgs sensor_msgs std_msgs)
 
 add_executable(tf_broadcaster src/tf_broadcaster.cpp)
 ament_target_dependencies(tf_broadcaster rclcpp geometry_msgs tf2 tf2_ros)
@@ -40,17 +42,15 @@ ament_target_dependencies(tf_listener rclcpp geometry_msgs tf2 tf2_ros)
 
 install(TARGETS
   my_first_node
-  img_control
-  track_obj
+  tracker
   tf_broadcaster
   tf_listener
   DESTINATION lib/${PROJECT_NAME}
 )
 
-install(DIRECTORY 
+install(DIRECTORY
   config
   launch
-  img_data
   maps
   rviz
   DESTINATION share/${PROJECT_NAME})

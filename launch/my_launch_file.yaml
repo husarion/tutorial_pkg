@@ -1,16 +1,13 @@
 launch:
-
   - node:
       pkg: "tutorial_pkg"
       exec: "my_first_node"
       name: "my_node"
       remap:
-        - 
-          from: "/image"
+        - from: "/image"
           to: "/your/camera/image" # Change topic
       param:
-        - 
-          name: "timer_period_s"
+        - name: "timer_period_s"
           value: 2
 
   - node:
@@ -18,17 +15,12 @@ launch:
       exec: "image_saver"
       name: "image_saver"
       remap:
-        - 
-          from: "/image"
+        - from: "/image"
           to: "/your/camera/image" # Change topic
-        - 
-          from: "/camera_info"
+        - from: "/camera_info"
           to: "/your/camera/camera_info" # Change topic
       param:
-        - 
-          name: "save_all_image"
+        - name: "save_all_image"
           value: false
-        - 
-          name: "filename_format"
+        - name: "filename_format"
           value: "./saved_images/image%04d.%s"
-
