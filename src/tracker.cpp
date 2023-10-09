@@ -42,6 +42,8 @@ void Tracker::_imageCallback(const sensor_msgs::msg::Image::SharedPtr msg)
     putText(frame, "Tracking failure detected", cv::Point(100, 80), cv::FONT_HERSHEY_SIMPLEX, 0.75, cv::Scalar(0, 0, 255), 2);
   }
 
+  _vel_pub->publish(vel_msg);
+
   // Publish visualization with rectangle around the tracked object
   rectangle(frame, obj, cv::Scalar(255, 0, 0), 2, 1);
 
