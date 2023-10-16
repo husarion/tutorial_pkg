@@ -1,5 +1,4 @@
-#ifndef TRACK_OBJ_NODE_HPP
-#define TRACK_OBJ_NODE_HPP
+#pragma once
 
 #include <rclcpp/rclcpp.hpp>
 #include <geometry_msgs/msg/twist.hpp>
@@ -26,5 +25,3 @@ private:
   cv::Ptr<cv::Tracker> _tracker;
   bool _is_tracker_initialized;
 };
-
-#endif // TRACK_OBJ_NODE_HPP
