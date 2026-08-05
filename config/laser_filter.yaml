@@ -1,0 +1,18 @@
+---
+# Box filter removing the robot's own structure (self-returns) from the laser scan.
+# Values are for ROSbot XL. For ROSbot 3 / 3 PRO use:
+#   min_x: -0.17  max_x: 0.10  min_y: -0.12  max_y: 0.12  max_z: 0.2
+laser_filter:
+  ros__parameters:
+    filter1:
+      name: box_filter
+      type: laser_filters/LaserScanBoxFilter
+      params:
+        box_frame: base_link
+        min_x: -0.25
+        max_x: 0.17
+        min_y: -0.15
+        max_y: 0.15
+        min_z: 0.0
+        max_z: 0.3
+        invert: false

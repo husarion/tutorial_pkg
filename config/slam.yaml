@@ -1,5 +1,7 @@
-slam:
+---
+slam_toolbox:
   ros__parameters:
+
     # Plugin params
     solver_plugin: solver_plugins::CeresSolver
     ceres_linear_solver: SPARSE_NORMAL_CHOLESKY
@@ -12,38 +14,40 @@ slam:
     odom_frame: odom
     map_frame: map
     base_frame: base_link
-    scan_topic: /scan_filtered #/scan
+    scan_topic: scan_filtered
+    use_map_saver: true
     mode: mapping #localization
 
-    # if you'd like to immediately start continuing a map at a given pose
-    # or at the dock, but they are mutually exclusive, if pose is given
-    # will use pose
-    # scan_queue_size: 1
-    # map_file_name: /home/aayli/Husarion/ros2_ws/src/tutorial_pkg/maps/map_serialized
-    # map_start_pose: [0.0, 0.0, 0.0]
-    # map_start_at_dock: true
-    debug_logging: true
+    # lifelong params
+    lifelong_search_use_tree: false
+    lifelong_minimum_score: 0.1
+    lifelong_iou_match: 0.85
+    lifelong_node_removal_score: 0.04
+    lifelong_overlap_score_scale: 0.06
+    lifelong_constraint_multiplier: 0.08
+    lifelong_nearby_penalty: 0.001
+    lifelong_candidates_scale: 0.03
 
+    debug_logging: false
     throttle_scans: 1
-    transform_publish_period: 0.02 # If 0 never publishes odometry
+    transform_publish_period: 0.04
     map_update_interval: 2.0
-    resolution: 0.04
+    resolution: 0.05
     max_laser_range: 12.0
-    minimum_time_interval: 0.1
+    minimum_time_interval: 0.5
     transform_timeout: 0.2
-    tf_buffer_duration: 20.0
+    tf_buffer_duration: 10.
     stack_size_to_use: 40000000
-    enable_interactive_mode: false
 
     # General Parameters
     use_scan_matching: true
     use_scan_barycenter: true
     minimum_travel_distance: 0.3
-    minimum_travel_heading: 0.5
+    minimum_travel_heading: 0.4
     scan_buffer_size: 10
-    scan_buffer_maximum_scan_distance: 7.0
+    scan_buffer_maximum_scan_distance: 10.0
     link_match_minimum_response_fine: 0.1
-    link_scan_maximum_distance: 1.0
+    link_scan_maximum_distance: 1.5
     loop_search_maximum_distance: 3.0
     do_loop_closing: true
     loop_match_minimum_chain_size: 10
@@ -64,6 +68,7 @@ slam:
     # Scan Matcher Parameters
     distance_variance_penalty: 0.5
     angle_variance_penalty: 1.0
+
     fine_search_angle_offset: 0.00349
     coarse_search_angle_offset: 0.349
     coarse_angle_resolution: 0.0349
