@@ -1,21 +1,22 @@
 #include <chrono>
+#include <cmath>
 #include <functional>
 #include <memory>
 
 #include "geometry_msgs/msg/transform_stamped.hpp"
 #include "rclcpp/rclcpp.hpp"
-#include "tf2/LinearMath/Quaternion.h"
-#include "tf2_ros/transform_broadcaster.h"
+#include "tf2/LinearMath/Quaternion.hpp"
+#include "tf2_ros/transform_broadcaster.hpp"
 
 using namespace std::chrono_literals;
 
-class TF_Brodcaster : public rclcpp::Node
+class TfBroadcaster : public rclcpp::Node
 {
 public:
-  TF_Brodcaster() : Node("tf_broadcaster")
+  TfBroadcaster() : Node("tf_broadcaster")
   {
     tf_broadcaster_ = std::make_unique<tf2_ros::TransformBroadcaster>(*this);
-    timer_ = create_wall_timer(10ms, std::bind(&TF_Brodcaster::timer_callback, this));
+    timer_ = create_wall_timer(10ms, std::bind(&TfBroadcaster::timer_callback, this));
 
     RCLCPP_INFO(get_logger(), "Node started!");
   }
@@ -54,7 +55,7 @@ private:
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-  rclcpp::spin(std::make_shared<TF_Brodcaster>());
+  rclcpp::spin(std::make_shared<TfBroadcaster>());
   rclcpp::shutdown();
   return 0;
 }

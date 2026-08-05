@@ -1,11 +1,6 @@
 cmake_minimum_required(VERSION 3.8)
 project(tutorial_pkg)
 
-# Set C++ standard to C++14
-if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
-endif()
-
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
@@ -28,15 +23,19 @@ include_directories(
 )
 
 add_executable(my_first_node src/my_first_node.cpp)
+target_compile_features(my_first_node PUBLIC c_std_99 cxx_std_17)
 ament_target_dependencies(my_first_node rclcpp sensor_msgs std_msgs std_srvs)
 
 add_executable(tracker src/tracker.cpp)
+target_compile_features(tracker PUBLIC c_std_99 cxx_std_17)
 ament_target_dependencies(tracker rclcpp OpenCV cv_bridge geometry_msgs sensor_msgs std_msgs)
 
 add_executable(tf_broadcaster src/tf_broadcaster.cpp)
+target_compile_features(tf_broadcaster PUBLIC c_std_99 cxx_std_17)
 ament_target_dependencies(tf_broadcaster rclcpp geometry_msgs tf2 tf2_ros)
 
 add_executable(tf_listener src/tf_listener.cpp)
+target_compile_features(tf_listener PUBLIC c_std_99 cxx_std_17)
 ament_target_dependencies(tf_listener rclcpp geometry_msgs tf2 tf2_ros)
 
 

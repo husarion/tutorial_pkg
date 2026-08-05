@@ -1,5 +1,5 @@
 #include "tutorial_pkg/tracker.hpp"
-#include <cv_bridge/cv_bridge.h>
+#include <cv_bridge/cv_bridge.hpp>
 #include <opencv2/opencv.hpp>
 
 using namespace std::placeholders;
@@ -11,7 +11,7 @@ Tracker::Tracker() : Node("tracker"), _is_tracker_initialized(false)
 
   // Publishers
   _visualization_pub = create_publisher<sensor_msgs::msg::Image>("/visualization", rclcpp::SensorDataQoS());
-  _vel_pub = create_publisher<geometry_msgs::msg::Twist>("/cmd_vel", rclcpp::SystemDefaultsQoS());
+  _vel_pub = create_publisher<geometry_msgs::msg::TwistStamped>("/cmd_vel", rclcpp::SystemDefaultsQoS());
 
   RCLCPP_INFO(get_logger(), "Node started!");
 }
@@ -22,7 +22,8 @@ void Tracker::_imageCallback(const sensor_msgs::msg::Image::SharedPtr msg)
   cv_bridge::CvImagePtr cv_image = cv_bridge::toCvCopy(msg, "bgr8");
   cv::Mat frame = cv_image->image;
   cv::Rect obj;
-  geometry_msgs::msg::Twist vel_msg;
+  geometry_msgs::msg::TwistStamped vel_msg;
+  vel_msg.header.stamp = now();
 
   if (!_is_tracker_initialized)
   {
@@ -34,7 +35,7 @@ void Tracker::_imageCallback(const sensor_msgs::msg::Image::SharedPtr msg)
   if (ok) {
     // Calculate angular speed based on the position of the object
     _designateControl(vel_msg, obj, msg->width);
-    RCLCPP_INFO(get_logger(), "Angular velocity: %0.2f", vel_msg.angular.z);
+    RCLCPP_INFO(get_logger(), "Angular velocity: %0.2f", vel_msg.twist.angular.z);
   }
   else {
     // Log a warning message if tracking fails and display it on the image
@@ -62,7 +63,7 @@ void Tracker::_initTracker(cv::Mat frame, cv::Rect obj)
   cv::waitKey(1);
 }
 
-void Tracker::_designateControl(geometry_msgs::msg::Twist &vel_msg, cv::Rect obj, uint32_t img_width)
+void Tracker::_designateControl(geometry_msgs::msg::TwistStamped &vel_msg, cv::Rect obj, uint32_t img_width)
 {
     int obj_x_center = obj.x + obj.width / 2;
     int px_to_center = img_width / 2 - obj_x_center;
@@ -70,7 +71,7 @@ void Tracker::_designateControl(geometry_msgs::msg::Twist &vel_msg, cv::Rect obj
 
     // Ensure angular velocity is within bounds
     if ((ang_vel >= -MAX_ANG_VEL && ang_vel <= -MIN_ANG_VEL) || (ang_vel >= MIN_ANG_VEL && ang_vel <= MAX_ANG_VEL)) {
-      vel_msg.angular.z = ang_vel;
+      vel_msg.twist.angular.z = ang_vel;
     }
 }
 

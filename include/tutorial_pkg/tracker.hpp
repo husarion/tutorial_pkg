@@ -1,7 +1,7 @@
 #pragma once
 
 #include <rclcpp/rclcpp.hpp>
-#include <geometry_msgs/msg/twist.hpp>
+#include <geometry_msgs/msg/twist_stamped.hpp>
 #include <sensor_msgs/msg/image.hpp>
 #include <opencv2/tracking.hpp>
 
@@ -17,11 +17,11 @@ public:
 private:
   void _imageCallback(const sensor_msgs::msg::Image::SharedPtr msg);
   void _initTracker(cv::Mat frame, cv::Rect obj);
-  void _designateControl(geometry_msgs::msg::Twist &vel_msg, cv::Rect obj, uint32_t img_width);
+  void _designateControl(geometry_msgs::msg::TwistStamped &vel_msg, cv::Rect obj, uint32_t img_width);
 
   rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr _img_sub;
   rclcpp::Publisher<sensor_msgs::msg::Image>::SharedPtr _visualization_pub;
-  rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr _vel_pub;
+  rclcpp::Publisher<geometry_msgs::msg::TwistStamped>::SharedPtr _vel_pub;
   cv::Ptr<cv::Tracker> _tracker;
   bool _is_tracker_initialized;
 };
