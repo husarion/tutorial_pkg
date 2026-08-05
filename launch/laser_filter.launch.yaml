@@ -1,0 +1,22 @@
+# Produces /scan_filtered from /scan by cutting out a box around the robot, so the
+# chassis, antenna and camera mount stop appearing as obstacles. SLAM, amcl and the
+# costmaps all consume /scan_filtered rather than the raw scan.
+launch:
+  - arg:
+      name: use_sim_time
+      default: "false"
+      description: "Use simulation (Gazebo) clock if true"
+
+  - arg:
+      name: laser_filter_params_file
+      default: "$(find-pkg-share tutorial_pkg)/config/laser_filter.yaml"
+      description: "Full path to the parameters file for the laser filter chain"
+
+  - node:
+      pkg: laser_filters
+      exec: scan_to_scan_filter_chain
+      name: laser_filter
+      param:
+        - from: "$(var laser_filter_params_file)"
+        - name: use_sim_time
+          value: "$(var use_sim_time)"

@@ -1,0 +1,45 @@
+# Exploration = our navigation stack running in SLAM mode, plus the explorer.
+# Reusing navigation.launch.yaml keeps a single Nav2 configuration (navigation.yaml)
+# and a single laser_filter node, instead of duplicating either.
+launch:
+  - arg:
+      name: use_sim_time
+      default: "false"
+      description: "Use simulation (Gazebo) clock if true"
+
+  - arg:
+      name: params_file
+      default: "$(find-pkg-share tutorial_pkg)/config/navigation.yaml"
+      description: "Full path to the Nav2 + slam_toolbox parameters file"
+
+  - arg:
+      name: explore_params_file
+      default: "$(find-pkg-share tutorial_pkg)/config/explore.yaml"
+      description: "Full path to the parameters file for the explore_lite node"
+
+  - include:
+      file: "$(find-pkg-share tutorial_pkg)/launch/navigation.launch.yaml"
+      arg:
+        - name: use_sim_time
+          value: "$(var use_sim_time)"
+        - name: params_file
+          value: "$(var params_file)"
+        # SLAM instead of amcl: exploration has no map to localise against yet.
+        - name: slam
+          value: "True"
+
+  # Started directly rather than via explore_lite's own launch file, which hardcodes
+  # its packaged params and takes no params_file argument.
+  - node:
+      pkg: explore_lite
+      exec: explore
+      name: explore_node
+      param:
+        - from: "$(var explore_params_file)"
+        - name: use_sim_time
+          value: "$(var use_sim_time)"
+      remap:
+        - from: "/tf"
+          to: "tf"
+        - from: "/tf_static"
+          to: "tf_static"

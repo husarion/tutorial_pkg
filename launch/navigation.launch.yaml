@@ -1,0 +1,40 @@
+# nav2_bringup starts the whole stack and manages every lifecycle node in it,
+# including slam_toolbox when slam:=True.
+launch:
+  - arg:
+      name: use_sim_time
+      default: "false"
+      description: "Use simulation (Gazebo) clock if true"
+
+  - arg:
+      name: slam
+      default: "False"
+      description: "Run SLAM instead of localising against a saved map"
+
+  - arg:
+      name: map
+      default: "$(find-pkg-share tutorial_pkg)/maps/map.yaml"
+      description: "Full path to the map yaml file to load"
+
+  - arg:
+      name: params_file
+      default: "$(find-pkg-share tutorial_pkg)/config/navigation.yaml"
+      description: "Full path to the parameters file for all launched nodes"
+
+  - include:
+      file: "$(find-pkg-share tutorial_pkg)/launch/laser_filter.launch.yaml"
+      arg:
+        - name: use_sim_time
+          value: "$(var use_sim_time)"
+
+  - include:
+      file: "$(find-pkg-share nav2_bringup)/launch/bringup_launch.py"
+      arg:
+        - name: use_sim_time
+          value: "$(var use_sim_time)"
+        - name: slam
+          value: "$(var slam)"
+        - name: map
+          value: "$(var map)"
+        - name: params_file
+          value: "$(var params_file)"

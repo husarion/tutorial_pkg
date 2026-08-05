@@ -1,0 +1,27 @@
+# slam_toolbox's async node is a lifecycle node on Jazzy: it has to be configured
+# and activated, which a YAML launch file cannot express. Including the upstream
+# launch file delegates those transitions to slam_toolbox itself.
+launch:
+  - arg:
+      name: use_sim_time
+      default: "false"
+      description: "Use simulation (Gazebo) clock if true"
+
+  - arg:
+      name: slam_params_file
+      default: "$(find-pkg-share tutorial_pkg)/config/slam.yaml"
+      description: "Full path to the parameters file for the slam_toolbox node"
+
+  - include:
+      file: "$(find-pkg-share tutorial_pkg)/launch/laser_filter.launch.yaml"
+      arg:
+        - name: use_sim_time
+          value: "$(var use_sim_time)"
+
+  - include:
+      file: "$(find-pkg-share slam_toolbox)/launch/online_async_launch.py"
+      arg:
+        - name: use_sim_time
+          value: "$(var use_sim_time)"
+        - name: slam_params_file
+          value: "$(var slam_params_file)"

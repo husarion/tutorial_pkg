@@ -1,0 +1,11 @@
+launch:
+  - arg:
+      name: config_file
+      default: "navigation.rviz"
+      description: "Name of the rviz configuration file inside tutorial_pkg/rviz"
+
+  - node:
+      pkg: rviz2
+      exec: rviz2
+      name: rviz2
+      args: "-d $(find-pkg-share tutorial_pkg)/rviz/$(var config_file)"
